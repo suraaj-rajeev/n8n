@@ -10,13 +10,13 @@ services:
     envVars:
       # Render / proxy / URL
       - key: N8N_HOST
-        value: n8n.onrender.com
+        value: n8n-xpwh.onrender.com
       - key: N8N_PROTOCOL
         value: https
       - key: N8N_PORT
         value: ${PORT}
       - key: WEBHOOK_URL
-        value: https://n8n.onrender.com/
+        value: https://n8n-xpwh.onrender.com/
       - key: N8N_PROXY_HOPS
         value: "1"
 
