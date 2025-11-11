@@ -21,6 +21,8 @@ services:
         value: "1"
       - key: N8N_RELEASE_TYPE
         value: stable
+      - key: NODE_ENV
+        value: production
 
       # Security & runners
       - key: N8N_ENCRYPTION_KEY
