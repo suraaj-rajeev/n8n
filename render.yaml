@@ -19,6 +19,8 @@ services:
         value: https://n8n-xpwh.onrender.com/
       - key: N8N_PROXY_HOPS
         value: "1"
+      - key: N8N_RELEASE_TYPE
+        value: stable
 
       # Security & runners
       - key: N8N_ENCRYPTION_KEY
