@@ -1,0 +1,61 @@
+services:
+  - type: web
+    name: n8n
+    env: node
+    plan: free
+    autoDeploy: false
+    buildCommand: npm ci
+    startCommand: ./start.sh
+    healthCheckPath: /healthz
+    envVars:
+      # Render / proxy / URL
+      - key: N8N_HOST
+        value: n8n.onrender.com
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_PORT
+        value: ${PORT}
+      - key: WEBHOOK_URL
+        value: https://n8n.onrender.com/
+      - key: N8N_PROXY_HOPS
+        value: "1"
+
+      # Security & runners
+      - key: N8N_ENCRYPTION_KEY
+        sync: false
+      - key: N8N_RUNNERS_ENABLED
+        value: "true"
+      - key: N8N_RUNNERS_MAX_NUM
+        value: "1"
+      - key: N8N_GIT_NODE_DISABLE_BARE_REPOS
+        value: "true"
+
+      # Permissions
+      - key: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
+        value: "true"
+      - key: N8N_USER_FOLDER
+        value: /home/node/.n8n
+
+      # (Optional) quiet logs/telemetry
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: "false"
+      - key: N8N_VERSION_NOTIFICATIONS_ENABLED
+        value: "false"
+
+      # Supabase (fill these in dashboard as secrets)
+      - key: DB_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_HOST
+        sync: false
+      - key: DB_POSTGRESDB_PORT
+        value: "5432"
+      - key: DB_POSTGRESDB_DATABASE
+        sync: false
+      - key: DB_POSTGRESDB_USER
+        sync: false
+      - key: DB_POSTGRESDB_PASSWORD
+        sync: false
+      - key: DB_POSTGRESDB_SSL
+        value: "true"
+      - key: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
+        value: "false"
