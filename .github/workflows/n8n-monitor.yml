@@ -38,10 +38,10 @@ jobs:
           STATUS: ${{ steps.check.outputs.status }}
         run: |
           message="🚨 *n8n Render DOWN*
-URL: https://n8n-lany.onrender.com
-Status: $STATUS
-Repo: $GITHUB_REPOSITORY
-Time: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+          URL: https://n8n-lany.onrender.com
+          Status: $STATUS
+          Repo: $GITHUB_REPOSITORY
+          Time: $(date '+%Y-%m-%d %H:%M:%S %Z')"
 
           # Escape newlines for JSON
           json_payload=$(printf '%s' "$message" | python - << 'PY'
