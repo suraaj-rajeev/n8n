@@ -1,0 +1,57 @@
+name: Monitor Render n8n
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # every 10 minutes
+  workflow_dispatch: {}      # allow manual trigger from Actions tab
+
+jobs:
+  check-render-service:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check n8n Render URL
+        id: check
+        run: |
+          URL="https://n8n-lany.onrender.com"
+          echo "Checking $URL"
+
+          # Call URL with timeout
+          HTTP_STATUS=$(curl -s -o /tmp/res -w "%{http_code}" --max-time 25 "$URL" || echo "000")
+          echo "HTTP_STATUS=$HTTP_STATUS"
+
+          # Expose status for later steps
+          echo "status=$HTTP_STATUS" >> $GITHUB_OUTPUT
+
+          # Fail if not 2xx
+          if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
+            echo "Service DOWN (status $HTTP_STATUS)"
+            exit 1
+          fi
+
+          echo "Service OK"
+
+      - name: Send Slack Alert
+        if: failure()  # only runs if previous step failed
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          STATUS: ${{ steps.check.outputs.status }}
+        run: |
+          message="🚨 *n8n Render DOWN*
+URL: https://n8n-lany.onrender.com
+Status: $STATUS
+Repo: $GITHUB_REPOSITORY
+Time: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+
+          # Escape newlines for JSON
+          json_payload=$(printf '%s' "$message" | python - << 'PY'
+import json,sys
+text=sys.stdin.read()
+print(json.dumps({"text": text}))
+PY
+)
+
+          curl -X POST \
+            -H 'Content-type: application/json' \
+            --data "$json_payload" \
+            "$SLACK_WEBHOOK_URL"
