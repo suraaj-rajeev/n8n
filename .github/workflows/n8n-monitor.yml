@@ -45,10 +45,10 @@ Time: $(date '+%Y-%m-%d %H:%M:%S %Z')"
 
           # Escape newlines for JSON
           json_payload=$(printf '%s' "$message" | python - << 'PY'
-import json,sys
-text=sys.stdin.read()
-print(json.dumps({"text": text}))
-PY
+          import json,sys
+          text=sys.stdin.read()
+          print(json.dumps({"text": text}))
+          PY
 )
 
           curl -X POST \
