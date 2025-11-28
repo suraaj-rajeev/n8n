@@ -37,19 +37,14 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           STATUS: ${{ steps.check.outputs.status }}
         run: |
-          message="🚨 *n8n Render DOWN*
-          URL: https://n8n-lany.onrender.com
-          Status: $STATUS
-          Repo: $GITHUB_REPOSITORY
-          Time: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+          message=$(printf '🚨 *n8n Render DOWN*\nURL: %s\nStatus: %s\nRepo: %s\nTime: %s\n' \
+            "https://n8n-lany.onrender.com" \
+            "$STATUS" \
+            "$GITHUB_REPOSITORY" \
+            "$(date '+%Y-%m-%d %H:%M:%S %Z')")
 
           # Escape newlines for JSON
-          json_payload=$(printf '%s' "$message" | python - << 'PY'
-          import json,sys
-          text=sys.stdin.read()
-          print(json.dumps({"text": text}))
-          PY
-          )
+          json_payload=$(printf '%s' "$message" | python -c "import json,sys; print(json.dumps({'text': sys.stdin.read()}))")
 
           curl -X POST \
             -H 'Content-type: application/json' \
