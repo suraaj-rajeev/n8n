@@ -10,13 +10,13 @@ services:
     envVars:
       # Render / proxy / URL
       - key: N8N_HOST
-        value: n8n-xpwh.onrender.com
+        value: n8n-lany.onrender.com
       - key: N8N_PROTOCOL
         value: https
       - key: N8N_PORT
         value: ${PORT}
       - key: WEBHOOK_URL
-        value: https://n8n-xpwh.onrender.com/
+        value: https://n8n-lany.onrender.com/
       - key: N8N_PROXY_HOPS
         value: "1"
       - key: N8N_RELEASE_TYPE
@@ -52,7 +52,7 @@ services:
       - key: DB_POSTGRESDB_HOST
         sync: false
       - key: DB_POSTGRESDB_PORT
-        value: "6543"
+        value: "5432"
       - key: DB_POSTGRESDB_DATABASE
         sync: false
       - key: DB_POSTGRESDB_USER
@@ -64,8 +64,8 @@ services:
       - key: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
         value: "false"
       - key: DB_POSTGRESDB_CONNECTION_TIMEOUT
-        value: "120000"
-      - key: DB_POSTGRESDB_IDLE_CONNECTION_TIMEOUT
         value: "30000"
+      - key: DB_POSTGRESDB_IDLE_CONNECTION_TIMEOUT
+        value: "10000"
       - key: DB_POSTGRESDB_POOL_SIZE
-        value: "2"
+        value: "1"
