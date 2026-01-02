@@ -59,7 +59,13 @@ services:
         sync: false
       - key: DB_POSTGRESDB_PASSWORD
         sync: false
-      - key: DB_POSTGRESDB_SSL
+      - key: DB_POSTGRESDB_SSL_ENABLED
         value: "true"
       - key: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
         value: "false"
+      - key: DB_POSTGRESDB_CONNECTION_TIMEOUT
+        value: "120000"
+      - key: DB_POSTGRESDB_IDLE_CONNECTION_TIMEOUT
+        value: "30000"
+      - key: DB_POSTGRESDB_POOL_SIZE
+        value: "2"

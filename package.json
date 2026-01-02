@@ -2,12 +2,18 @@
     "name": "n8n-on-render",
     "private": true,
     "type": "module",
-    "engines": { "node": "20.x" },
+    "engines": {
+        "node": "20.x"
+    },
     "scripts": {
-      "start": "bash start.sh"
+        "start": "bash start.sh",
+        "dev": "npx dotenv-cli -e .env -- bash start-local.sh",
+        "dev:direct": "npx dotenv-cli -e .env -- n8n start"
     },
     "dependencies": {
-      "n8n": "^1.118.2"
+        "n8n": "^1.118.2"
+    },
+    "devDependencies": {
+        "dotenv-cli": "^11.0.0"
     }
-  }
-  
+}
