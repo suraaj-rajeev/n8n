@@ -64,8 +64,8 @@ services:
       - key: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
         value: "false"
       - key: DB_POSTGRESDB_CONNECTION_TIMEOUT
-        value: "30000"
+        value: "120000"
       - key: DB_POSTGRESDB_IDLE_CONNECTION_TIMEOUT
-        value: "10000"
+        value: "30000"
       - key: DB_POSTGRESDB_POOL_SIZE
-        value: "1"
+        value: "2"
