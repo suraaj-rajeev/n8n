@@ -26,13 +26,13 @@ services:
       - key: NODE_ENV
         value: production
 
-      # Security & runners (runners disabled to avoid 403 on Render; workflows still run in main process)
+      # Security & runners
       - key: N8N_ENCRYPTION_KEY
         sync: false
       - key: N8N_RUNNERS_ENABLED
-        value: "false"
+        value: "true"
       - key: N8N_RUNNERS_MAX_NUM
-        value: "0"
+        value: "1"
       - key: N8N_GIT_NODE_DISABLE_BARE_REPOS
         value: "true"
 
