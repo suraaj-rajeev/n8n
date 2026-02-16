@@ -8,7 +8,9 @@ services:
     startCommand: ./start.sh
     healthCheckPath: /healthz
     envVars:
-      # Render / proxy / URL
+      # Render / proxy / URL (listen on all interfaces for health checks)
+      - key: N8N_LISTEN_ADDRESS
+        value: "0.0.0.0"
       - key: N8N_HOST
         value: n8n-lany.onrender.com
       - key: N8N_PROTOCOL
@@ -24,13 +26,13 @@ services:
       - key: NODE_ENV
         value: production
 
-      # Security & runners
+      # Security & runners (runners disabled to avoid 403 on Render; workflows still run in main process)
       - key: N8N_ENCRYPTION_KEY
         sync: false
       - key: N8N_RUNNERS_ENABLED
-        value: "true"
+        value: "false"
       - key: N8N_RUNNERS_MAX_NUM
-        value: "1"
+        value: "0"
       - key: N8N_GIT_NODE_DISABLE_BARE_REPOS
         value: "true"
 
