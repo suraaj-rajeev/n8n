@@ -11,7 +11,7 @@
         "dev:direct": "npx dotenv-cli -e .env -- n8n start"
     },
     "dependencies": {
-        "n8n": "^1.118.2"
+        "n8n": "^2.13.4"
     },
     "devDependencies": {
         "dotenv-cli": "^11.0.0"
