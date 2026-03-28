@@ -1,0 +1,47 @@
+{
+    "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v11/terminal-keeper.json",
+    "active": "default",
+    "activateOnStartup": true,
+    "keepExistingTerminals": false,
+    "noClear": true,
+    "theme": "neon",
+    "sessions": {
+        "default": [
+            {
+                "name": "n8n:dev-direct",
+                "cwd": ".",
+                "commands": [
+                    "npm run dev:direct"
+                ],
+                "autoExecuteCommands": true,
+                "focus": true,
+                "icon": "play",
+                "color": "terminal.ansiGreen"
+            },
+            {
+                "name": "workspace:shell",
+                "cwd": ".",
+                "commands": [
+                    "echo Workspace shell ready"
+                ],
+                "autoExecuteCommands": false,
+                "icon": "terminal-bash",
+                "color": "terminal.ansiCyan"
+            }
+        ],
+        "direct-with-install": [
+            {
+                "name": "n8n:install-and-start",
+                "cwd": ".",
+                "commands": [
+                    "npm install",
+                    "npm run dev:direct"
+                ],
+                "autoExecuteCommands": true,
+                "focus": true,
+                "icon": "package",
+                "color": "terminal.ansiYellow"
+            }
+        ]
+    }
+}
